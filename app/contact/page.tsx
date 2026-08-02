@@ -1,3 +1,6 @@
+"use client";
+
+import { FormEvent, useState } from "react";
 import Link from "next/link";
 
 const contactOptions = [
@@ -22,6 +25,63 @@ const contactOptions = [
 ];
 
 export default function ContactPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setIsSubmitting(true);
+    setStatus(null);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: formData.get("firstName"),
+          lastName: formData.get("lastName"),
+          email: formData.get("email"),
+          subject: formData.get("subject"),
+          message: formData.get("message"),
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Your message could not be sent.");
+      }
+
+      setStatus({
+        type: "success",
+        message:
+          result.message ||
+          "Your message was sent successfully. We will respond as soon as possible.",
+      });
+
+      form.reset();
+    } catch (error) {
+      setStatus({
+        type: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Something went wrong. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <main className="bg-white text-slate-900">
       <section className="relative overflow-hidden bg-gradient-to-b from-teal-50 via-white to-white">
@@ -100,7 +160,10 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <form className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm sm:p-10">
+          <form
+            onSubmit={handleSubmit}
+            className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm sm:p-10"
+          >
             <div className="grid gap-6 sm:grid-cols-2">
               <div>
                 <label
@@ -115,7 +178,8 @@ export default function ContactPage() {
                   name="firstName"
                   type="text"
                   required
-                  className="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-teal-600 focus:ring-4 focus:ring-teal-100"
+                  disabled={isSubmitting}
+                  className="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-teal-600 focus:ring-4 focus:ring-teal-100 disabled:cursor-not-allowed disabled:bg-slate-100"
                   placeholder="First name"
                 />
               </div>
@@ -133,7 +197,8 @@ export default function ContactPage() {
                   name="lastName"
                   type="text"
                   required
-                  className="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-teal-600 focus:ring-4 focus:ring-teal-100"
+                  disabled={isSubmitting}
+                  className="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-teal-600 focus:ring-4 focus:ring-teal-100 disabled:cursor-not-allowed disabled:bg-slate-100"
                   placeholder="Last name"
                 />
               </div>
@@ -152,7 +217,8 @@ export default function ContactPage() {
                 name="email"
                 type="email"
                 required
-                className="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-teal-600 focus:ring-4 focus:ring-teal-100"
+                disabled={isSubmitting}
+                className="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-teal-600 focus:ring-4 focus:ring-teal-100 disabled:cursor-not-allowed disabled:bg-slate-100"
                 placeholder="you@example.com"
               />
             </div>
@@ -170,7 +236,8 @@ export default function ContactPage() {
                 name="subject"
                 required
                 defaultValue=""
-                className="mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-100"
+                disabled={isSubmitting}
+                className="mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-100 disabled:cursor-not-allowed disabled:bg-slate-100"
               >
                 <option value="" disabled>
                   Select an option
@@ -198,21 +265,37 @@ export default function ContactPage() {
                 name="message"
                 required
                 rows={7}
-                className="mt-2 w-full resize-none rounded-2xl border border-slate-300 px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-teal-600 focus:ring-4 focus:ring-teal-100"
+                disabled={isSubmitting}
+                className="mt-2 w-full resize-none rounded-2xl border border-slate-300 px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-teal-600 focus:ring-4 focus:ring-teal-100 disabled:cursor-not-allowed disabled:bg-slate-100"
                 placeholder="Tell us how we can help."
               />
             </div>
 
+            {status && (
+              <div
+                role="status"
+                aria-live="polite"
+                className={`mt-6 rounded-2xl border px-5 py-4 text-sm font-medium ${
+                  status.type === "success"
+                    ? "border-teal-200 bg-teal-50 text-teal-800"
+                    : "border-red-200 bg-red-50 text-red-700"
+                }`}
+              >
+                {status.message}
+              </div>
+            )}
+
             <button
               type="submit"
-              className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-teal-700 px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-800 sm:w-auto"
+              disabled={isSubmitting}
+              className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-teal-700 px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-800 disabled:cursor-not-allowed disabled:bg-teal-400 sm:w-auto"
             >
-              Send Message
+              {isSubmitting ? "Sending Message..." : "Send Message"}
             </button>
 
             <p className="mt-5 text-sm leading-6 text-slate-500">
-              This Version 1 form is currently visual only. Form delivery will
-              be connected before launch.
+              By submitting this form, you agree that Layers of Hope Foundation
+              may use the information provided to respond to your inquiry.
             </p>
           </form>
         </div>
