@@ -1,6 +1,4 @@
 import Link from "next/link";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/layout/Navbar";
 import {
   BookOpen,
   FileText,
@@ -64,8 +62,6 @@ export default function ResourcesPage() {
 
   return (
     <main className="min-h-screen bg-white text-slate-900">
-      <Navbar />
-
       <section className="bg-gradient-to-b from-teal-50 via-white to-white py-24">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="text-sm font-bold uppercase tracking-[0.3em] text-teal-700">
@@ -119,8 +115,6 @@ export default function ResourcesPage() {
           })}
         </div>
       </section>
-
-      <Footer />
     </main>
   );
 }

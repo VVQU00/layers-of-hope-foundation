@@ -1,5 +1,3 @@
-import Footer from "@/components/Footer";
-import Navbar from "@/components/layout/Navbar";
 import {
   BookOpen,
   HeartHandshake,
@@ -44,8 +42,6 @@ export default function AboutPage() {
 
   return (
     <main className="min-h-screen bg-white text-slate-900">
-      <Navbar />
-
       <section className="bg-gradient-to-b from-teal-50 via-white to-white px-6 py-24 text-center">
         <div className="mx-auto max-w-4xl">
           <p className="text-sm font-bold uppercase tracking-[0.3em] text-teal-700">
@@ -176,8 +172,6 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
-
-      <Footer />
     </main>
   );
 }

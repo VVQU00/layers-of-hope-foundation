@@ -1,12 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-5">
-
         {/* Logo */}
-        <div className="flex items-center">
+        <Link href="/" className="flex items-center">
           <Image
             src="/wordmark.png"
             alt="Layers of Hope Foundation"
@@ -14,51 +14,51 @@ export default function Navbar() {
             height={60}
             priority
           />
-        </div>
+        </Link>
 
         {/* Navigation */}
         <nav className="hidden items-center gap-8 md:flex">
-          <a
-            href="#"
+          <Link
+            href="/about"
             className="text-sm font-medium text-slate-700 transition hover:text-teal-700"
           >
             About
-          </a>
+          </Link>
 
-          <a
-            href="#"
+          <Link
+            href="/resources"
             className="text-sm font-medium text-slate-700 transition hover:text-teal-700"
           >
             Resources
-          </a>
+          </Link>
 
-          <a
-            href="#"
+          <Link
+            href="/research"
             className="text-sm font-medium text-slate-700 transition hover:text-teal-700"
           >
             Research
-          </a>
+          </Link>
 
-          <a
-            href="#"
+          <Link
+            href="/community"
             className="text-sm font-medium text-slate-700 transition hover:text-teal-700"
           >
             Community
-          </a>
+          </Link>
 
-          <a
-            href="#"
+          <Link
+            href="/donate"
             className="text-sm font-medium text-slate-700 transition hover:text-teal-700"
           >
             Donate
-          </a>
+          </Link>
 
-          <a
-            href="#"
+          <Link
+            href="/contact"
             className="rounded-lg border border-teal-700 px-5 py-2 text-sm font-semibold text-teal-700 transition hover:bg-teal-700 hover:text-white"
           >
             Contact
-          </a>
+          </Link>
         </nav>
       </div>
     </header>

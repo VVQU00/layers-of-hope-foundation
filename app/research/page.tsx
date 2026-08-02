@@ -1,5 +1,3 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/Footer";
 import Link from "next/link";
 import {
   Microscope,
@@ -32,8 +30,6 @@ export default function ResearchPage() {
 
   return (
     <main className="min-h-screen bg-white">
-      <Navbar />
-
       <section className="bg-gradient-to-b from-teal-50 via-white to-white py-24">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="text-sm font-bold uppercase tracking-[0.3em] text-teal-700">
@@ -100,8 +96,6 @@ export default function ResearchPage() {
           </Link>
         </div>
       </section>
-
-      <Footer />
     </main>
   );
 }
