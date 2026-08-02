@@ -30,7 +30,8 @@ export async function POST(request: Request) {
       typeof body.firstName === "string" ? body.firstName.trim() : "";
     const lastName =
       typeof body.lastName === "string" ? body.lastName.trim() : "";
-    const email = typeof body.email === "string" ? body.email.trim() : "";
+    const email =
+      typeof body.email === "string" ? body.email.trim() : "";
     const subject =
       typeof body.subject === "string" ? body.subject.trim() : "";
     const message =
@@ -42,7 +43,7 @@ export async function POST(request: Request) {
           success: false,
           message: "Please complete every required field.",
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -52,14 +53,14 @@ export async function POST(request: Request) {
           success: false,
           message: "Please enter a valid email address.",
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
     const subjectLabel = subjectLabels[subject] ?? "Website Contact";
 
     const { data, error } = await resend.emails.send({
-      from: "Layers of Hope Website <onboarding@resend.dev>",
+      from: "Layers of Hope Foundation <contact@layersofhopefoundation.org>",
       to: ["lohfoundation@outlook.com"],
       replyTo: email,
       subject: `${subjectLabel} — ${firstName} ${lastName}`,
@@ -72,7 +73,7 @@ export async function POST(request: Request) {
             <strong>layersofhopefoundation.org</strong>.
           </p>
 
-          <hr style="border: 0; border-top: 1px solid #cbd5e1; margin: 24px 0;" />
+          <hr style="border:0;border-top:1px solid #cbd5e1;margin:24px 0;" />
 
           <p><strong>Name:</strong> ${escapeHtml(firstName)} ${escapeHtml(lastName)}</p>
           <p><strong>Email:</strong> ${escapeHtml(email)}</p>
@@ -80,7 +81,7 @@ export async function POST(request: Request) {
 
           <p><strong>Message:</strong></p>
 
-          <div style="white-space: pre-wrap; border-left: 4px solid #0f766e; padding: 12px 16px; background: #f0fdfa;">
+          <div style="white-space:pre-wrap;border-left:4px solid #0f766e;padding:12px 16px;background:#f0fdfa;">
             ${escapeHtml(message)}
           </div>
         </div>
@@ -103,9 +104,10 @@ ${message}
       return NextResponse.json(
         {
           success: false,
-          message: "Your message could not be sent. Please try again.",
+          message: "Your message could not be sent.",
+          error,
         },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
@@ -115,7 +117,7 @@ ${message}
         message: "Your message was sent successfully.",
         id: data?.id,
       },
-      { status: 200 },
+      { status: 200 }
     );
   } catch (error) {
     console.error("Contact route error:", error);
@@ -125,7 +127,7 @@ ${message}
         success: false,
         message: "Something went wrong. Please try again.",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
