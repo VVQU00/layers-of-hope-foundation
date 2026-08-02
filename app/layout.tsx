@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://layersofhopefoundation.org"),
+  metadataBase: new URL("https://www.layersofhopefoundation.org"),
 
   title: {
     default: "Layers of Hope Foundation",
@@ -46,23 +46,23 @@ export const metadata: Metadata = {
   ],
 
   creator: "Layers of Hope Foundation",
+  publisher: "Layers of Hope Foundation",
+
+  alternates: {
+    canonical: "https://www.layersofhopefoundation.org",
+  },
 
   openGraph: {
     title: "Layers of Hope Foundation",
     description:
-      "Supporting individuals and families affected by Mycosis Fungoides and Cutaneous T-Cell Lymphoma.",
-
-    url: "https://layersofhopefoundation.org",
-
+      "Supporting individuals and families affected by Mycosis Fungoides and Cutaneous T-Cell Lymphoma through education, awareness, advocacy, research, and community.",
+    url: "https://www.layersofhopefoundation.org",
     siteName: "Layers of Hope Foundation",
-
     locale: "en_US",
-
     type: "website",
-
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.jpg?v=2",
         width: 1200,
         height: 630,
         alt: "Layers of Hope Foundation",
@@ -75,8 +75,7 @@ export const metadata: Metadata = {
     title: "Layers of Hope Foundation",
     description:
       "Education, awareness, advocacy, research, and hope for individuals affected by Mycosis Fungoides and CTCL.",
-
-    images: ["/og-image.jpg"],
+    images: ["/og-image.jpg?v=2"],
   },
 
   icons: {
