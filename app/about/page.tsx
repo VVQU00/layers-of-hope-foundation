@@ -1,171 +1,183 @@
-import Image from "next/image";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/layout/Navbar";
+import {
+  BookOpen,
+  HeartHandshake,
+  Lightbulb,
+  ShieldCheck,
+  Users,
+} from "lucide-react";
 
 export default function AboutPage() {
+  const values = [
+    {
+      title: "Compassion",
+      description:
+        "We approach every patient, caregiver, and family with empathy, dignity, and respect.",
+      icon: HeartHandshake,
+    },
+    {
+      title: "Education",
+      description:
+        "We make complex information easier to understand so people can feel more informed and prepared.",
+      icon: BookOpen,
+    },
+    {
+      title: "Community",
+      description:
+        "We believe no one should have to navigate Mycosis Fungoides or CTCL alone.",
+      icon: Users,
+    },
+    {
+      title: "Innovation",
+      description:
+        "We use thoughtful technology to create practical tools and improve access to support.",
+      icon: Lightbulb,
+    },
+    {
+      title: "Integrity",
+      description:
+        "We value accuracy, transparency, responsible guidance, and trusted medical collaboration.",
+      icon: ShieldCheck,
+    },
+  ];
+
   return (
     <main className="min-h-screen bg-white text-slate-900">
+      <Navbar />
 
-      {/* Hero */}
+      <section className="bg-gradient-to-b from-teal-50 via-white to-white px-6 py-24 text-center">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-sm font-bold uppercase tracking-[0.3em] text-teal-700">
+            About Us
+          </p>
 
-      <section className="bg-gradient-to-b from-teal-50 to-white py-24">
-
-        <div className="mx-auto max-w-5xl px-6 text-center">
-
-          <Image
-            src="/logo-icon.png"
-            alt="Layers of Hope Foundation"
-            width={110}
-            height={110}
-            className="mx-auto"
-          />
-
-          <h1 className="mt-10 text-5xl font-bold">
-            About Layers of Hope Foundation
+          <h1 className="mt-5 text-5xl font-bold tracking-tight md:text-7xl">
+            Built to Make the Journey Less Overwhelming.
           </h1>
 
           <p className="mx-auto mt-8 max-w-3xl text-xl leading-9 text-slate-600">
-            We believe every individual affected by Mycosis Fungoides and
-            Cutaneous T-Cell Lymphoma deserves access to trusted information,
-            compassionate support, and hope for the future.
+            Layers of Hope Foundation supports individuals and families
+            affected by Mycosis Fungoides and Cutaneous T-Cell Lymphoma
+            through education, community, advocacy, innovation, and hope.
           </p>
-
         </div>
-
       </section>
 
-      {/* Our Story */}
-
-      <section className="py-24">
-
-        <div className="mx-auto max-w-6xl px-6 grid gap-16 md:grid-cols-2">
-
+      <section className="px-6 py-24">
+        <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-2">
           <div>
-
-            <p className="font-semibold uppercase tracking-[0.3em] text-teal-700">
-              Our Story
+            <p className="text-sm font-bold uppercase tracking-[0.3em] text-teal-700">
+              Why We Exist
             </p>
 
-            <h2 className="mt-4 text-4xl font-bold">
-              Why We Exist
+            <h2 className="mt-4 text-4xl font-bold md:text-5xl">
+              No one should have to search for answers alone.
             </h2>
 
-            <p className="mt-8 leading-8 text-slate-600">
-              Receiving a diagnosis of Mycosis Fungoides or Cutaneous T-Cell
-              Lymphoma can leave individuals and families searching for
-              answers, guidance, and support.
-
-              Layers of Hope Foundation was created to make that journey
-              less overwhelming by providing reliable education,
-              meaningful community, and resources designed specifically
-              for people living with these rare diseases.
+            <p className="mt-7 text-lg leading-8 text-slate-600">
+              A rare diagnosis can create confusion, fear, and uncertainty.
+              People may struggle to find clear explanations, experienced
+              specialists, practical resources, and a community that
+              understands what they are facing.
             </p>
 
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              Layers of Hope Foundation was created to help close those gaps
+              by building a trusted, accessible, and technology-driven
+              support platform for the Mycosis Fungoides and CTCL community.
+            </p>
           </div>
 
-          <div className="rounded-3xl bg-teal-50 p-10">
-
-            <h3 className="text-2xl font-bold">
+          <div className="rounded-3xl border border-teal-100 bg-teal-50 p-10">
+            <p className="text-sm font-bold uppercase tracking-[0.3em] text-teal-700">
               Our Mission
-            </h3>
-
-            <p className="mt-6 leading-8 text-slate-700">
-              To improve the lives of individuals and families affected by
-              Mycosis Fungoides and Cutaneous T-Cell Lymphoma through
-              education, patient support, advocacy, innovation,
-              and research.
             </p>
 
+            <h2 className="mt-4 text-3xl font-bold">
+              Education. Support. Advocacy. Innovation.
+            </h2>
+
+            <p className="mt-6 text-lg leading-8 text-slate-700">
+              Our mission is to improve the lives of individuals and families
+              affected by Mycosis Fungoides and Cutaneous T-Cell Lymphoma by
+              providing trusted education, compassionate support, practical
+              tools, advocacy, and pathways to research and expert care.
+            </p>
           </div>
-
         </div>
-
       </section>
 
-      {/* Core Values */}
+      <section className="bg-slate-50 px-6 py-24">
+        <div className="mx-auto max-w-6xl text-center">
+          <p className="text-sm font-bold uppercase tracking-[0.3em] text-teal-700">
+            Our Vision
+          </p>
 
-      <section className="bg-slate-50 py-24">
+          <h2 className="mx-auto mt-4 max-w-4xl text-4xl font-bold md:text-5xl">
+            A future where every person affected by MF or CTCL has access to
+            trusted information, meaningful support, and hope.
+          </h2>
+        </div>
+      </section>
 
-        <div className="mx-auto max-w-6xl px-6">
-
+      <section className="px-6 py-24">
+        <div className="mx-auto max-w-7xl">
           <div className="text-center">
-
-            <p className="font-semibold uppercase tracking-[0.3em] text-teal-700">
+            <p className="text-sm font-bold uppercase tracking-[0.3em] text-teal-700">
               Our Values
             </p>
 
-            <h2 className="mt-4 text-4xl font-bold">
-              Everything We Do Starts Here
+            <h2 className="mt-4 text-4xl font-bold md:text-5xl">
+              What guides everything we build.
             </h2>
-
           </div>
 
-          <div className="mt-16 grid gap-8 md:grid-cols-4">
+          <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-5">
+            {values.map((value) => {
+              const Icon = value.icon;
 
-            <div className="rounded-3xl bg-white p-8 shadow-sm">
-              <div className="text-5xl">❤️</div>
-              <h3 className="mt-5 text-2xl font-bold">Compassion</h3>
-            </div>
+              return (
+                <div
+                  key={value.title}
+                  className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-100 text-teal-700">
+                    <Icon className="h-6 w-6" />
+                  </div>
 
-            <div className="rounded-3xl bg-white p-8 shadow-sm">
-              <div className="text-5xl">📚</div>
-              <h3 className="mt-5 text-2xl font-bold">Education</h3>
-            </div>
+                  <h3 className="mt-6 text-xl font-bold">{value.title}</h3>
 
-            <div className="rounded-3xl bg-white p-8 shadow-sm">
-              <div className="text-5xl">🤝</div>
-              <h3 className="mt-5 text-2xl font-bold">Community</h3>
-            </div>
-
-            <div className="rounded-3xl bg-white p-8 shadow-sm">
-              <div className="text-5xl">💙</div>
-              <h3 className="mt-5 text-2xl font-bold">Hope</h3>
-            </div>
-
+                  <p className="mt-3 leading-7 text-slate-600">
+                    {value.description}
+                  </p>
+                </div>
+              );
+            })}
           </div>
-
         </div>
-
       </section>
 
-      {/* Founder Letter */}
-
-      <section className="py-24">
-
-        <div className="mx-auto max-w-4xl rounded-3xl bg-white px-8 py-16 shadow-lg">
-
-          <p className="font-semibold uppercase tracking-[0.3em] text-teal-700">
-            Founder's Letter
+      <section className="bg-slate-900 px-6 py-24 text-white">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="text-sm font-bold uppercase tracking-[0.3em] text-teal-300">
+            Looking Ahead
           </p>
 
-          <h2 className="mt-5 text-4xl font-bold">
-            More Than a Diagnosis.
+          <h2 className="mt-5 text-4xl font-bold md:text-5xl">
+            We are building more than a website.
           </h2>
 
-          <p className="mt-10 leading-9 text-slate-600">
-
-            When someone hears the words
-            "You have Mycosis Fungoides,"
-            life can change instantly.
-
-            Questions appear faster than answers.
-
-            Fear often replaces certainty.
-
-            Layers of Hope Foundation was created
-            to help change that.
-
-            Our goal is simple:
-            provide trustworthy education,
-            build a supportive community,
-            encourage research,
-            and remind every individual and family
-            that they are never alone.
-
+          <p className="mx-auto mt-7 max-w-3xl text-lg leading-8 text-slate-300">
+            Our long-term vision includes patient education, guided support
+            journeys, downloadable tools, specialist resources, community
+            programs, research access, and technology that makes information
+            easier to find and use.
           </p>
-
         </div>
-
       </section>
 
+      <Footer />
     </main>
   );
 }
