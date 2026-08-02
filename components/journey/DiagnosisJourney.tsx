@@ -14,6 +14,8 @@ import {
   Users,
 } from "lucide-react";
 
+import OptionCard from "@/components/ui/OptionCard";
+
 type JourneyAnswers = {
   diagnosedPerson: string;
   currentFeeling: string;
@@ -84,7 +86,6 @@ export default function DiagnosisJourney() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-teal-50 via-white to-slate-50 text-slate-900">
       <div className="mx-auto max-w-5xl px-6 py-8 md:py-12">
-        {/* Top navigation */}
         <div className="mb-8 flex items-center justify-between">
           <a
             href="/"
@@ -99,7 +100,6 @@ export default function DiagnosisJourney() {
           </p>
         </div>
 
-        {/* Progress bar */}
         <div className="mb-10 h-2 overflow-hidden rounded-full bg-slate-200">
           <div
             className="h-full rounded-full bg-teal-700 transition-all duration-500"
@@ -107,9 +107,7 @@ export default function DiagnosisJourney() {
           />
         </div>
 
-        {/* Journey card */}
         <section className="min-h-[620px] rounded-[2rem] border border-white bg-white/95 p-7 shadow-xl shadow-slate-200/60 backdrop-blur md:p-14">
-          {/* STEP 1 */}
           {step === 1 && (
             <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
               <div className="flex h-20 w-20 items-center justify-center rounded-full bg-teal-100 text-teal-700">
@@ -121,13 +119,13 @@ export default function DiagnosisJourney() {
               </p>
 
               <h1 className="mt-4 text-4xl font-bold tracking-tight md:text-6xl">
-                We’re Glad You Found Us.
+                We&apos;re Glad You Found Us.
               </h1>
 
               <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-600 md:text-xl">
                 A diagnosis of Mycosis Fungoides or CTCL can bring a lot of
                 questions at once. You do not have to understand everything
-                today. We’ll take this one step at a time.
+                today. We&apos;ll take this one step at a time.
               </p>
 
               <div className="mt-10 rounded-2xl border border-teal-100 bg-teal-50 p-6 text-left">
@@ -144,13 +142,12 @@ export default function DiagnosisJourney() {
             </div>
           )}
 
-          {/* STEP 2 */}
           {step === 2 && (
             <SelectionStep
               icon={<Users className="h-9 w-9" />}
               eyebrow="Let’s Begin"
               title="Who was diagnosed?"
-              description="Your answer will eventually help us personalize the resources shown throughout this journey."
+              description="Choose the option that best describes your situation."
               options={diagnosedOptions}
               selectedValue={answers.diagnosedPerson}
               onSelect={(value) =>
@@ -162,13 +159,12 @@ export default function DiagnosisJourney() {
             />
           )}
 
-          {/* STEP 3 */}
           {step === 3 && (
             <SelectionStep
               icon={<Sparkles className="h-9 w-9" />}
               eyebrow="Check In"
               title="What are you looking for today?"
-              description="There is no wrong answer. Choose the option that feels closest to what you need right now."
+              description="Choose the option that feels closest to what you need right now."
               options={feelingOptions}
               selectedValue={answers.currentFeeling}
               onSelect={(value) =>
@@ -180,7 +176,6 @@ export default function DiagnosisJourney() {
             />
           )}
 
-          {/* STEP 4 */}
           {step === 4 && (
             <InformationStep
               icon={<BookOpen className="h-9 w-9" />}
@@ -189,9 +184,9 @@ export default function DiagnosisJourney() {
             >
               <p>
                 Mycosis Fungoides is a form of cutaneous T-cell lymphoma,
-                commonly shortened to CTCL. Because every person’s situation
-                is different, your healthcare team is the right source for
-                information about your specific diagnosis and care.
+                commonly shortened to CTCL. Because every person&apos;s
+                situation is different, your healthcare team is the right
+                source for information about your specific diagnosis and care.
               </p>
 
               <div className="mt-8 grid gap-4 md:grid-cols-2">
@@ -202,23 +197,22 @@ export default function DiagnosisJourney() {
 
                 <InfoBox
                   title="Write down questions"
-                  text="Keeping notes can make appointments feel more manageable and help you remember what was discussed."
+                  text="Keeping notes can make appointments feel more manageable."
                 />
 
                 <InfoBox
                   title="Ask for clarification"
-                  text="It is okay to ask your healthcare team to repeat or explain something in simpler language."
+                  text="It is okay to ask your healthcare team to explain something in simpler language."
                 />
 
                 <InfoBox
                   title="Use trusted sources"
-                  text="Be cautious with online claims that promise cures or tell you to ignore professional medical care."
+                  text="Be cautious with online claims that promise cures or tell you to ignore medical care."
                 />
               </div>
             </InformationStep>
           )}
 
-          {/* STEP 5 */}
           {step === 5 && (
             <InformationStep
               icon={<ClipboardList className="h-9 w-9" />}
@@ -240,16 +234,14 @@ export default function DiagnosisJourney() {
                   <Stethoscope className="mt-1 h-6 w-6 shrink-0 text-teal-700" />
 
                   <p className="leading-7 text-slate-700">
-                    These are general conversation starters, not a complete
-                    medical checklist. Add questions that reflect your own
-                    symptoms, concerns, and circumstances.
+                    These are general conversation starters. Add questions that
+                    reflect your own symptoms, concerns, and circumstances.
                   </p>
                 </div>
               </div>
             </InformationStep>
           )}
 
-          {/* STEP 6 */}
           {step === 6 && (
             <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
               <div className="flex h-20 w-20 items-center justify-center rounded-full bg-green-100 text-green-700">
@@ -261,13 +253,12 @@ export default function DiagnosisJourney() {
               </p>
 
               <h2 className="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
-                You Don’t Have to Do Everything Today.
+                You Don&apos;t Have to Do Everything Today.
               </h2>
 
               <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-600">
                 Save your questions, speak with your healthcare team, and come
-                back whenever you are ready. Layers of Hope Foundation is
-                building more education and support resources for this journey.
+                back whenever you are ready.
               </p>
 
               <div className="mt-10 grid w-full gap-4 md:grid-cols-3">
@@ -292,7 +283,6 @@ export default function DiagnosisJourney() {
             </div>
           )}
 
-          {/* Controls */}
           <div className="mt-12 flex flex-col-reverse gap-4 border-t border-slate-200 pt-8 sm:flex-row sm:items-center sm:justify-between">
             {step > 1 ? (
               <button
@@ -369,34 +359,14 @@ function SelectionStep({
       <p className="mt-5 text-lg leading-8 text-slate-600">{description}</p>
 
       <div className="mt-10 grid gap-4 md:grid-cols-2">
-        {options.map((option) => {
-          const selected = selectedValue === option.value;
-
-          return (
-            <button
-              key={option.value}
-              type="button"
-              onClick={() => onSelect(option.value)}
-              className={`flex min-h-20 items-center justify-between rounded-2xl border p-5 text-left font-semibold transition ${
-                selected
-                  ? "border-teal-700 bg-teal-50 text-teal-900 shadow-sm"
-                  : "border-slate-200 bg-white text-slate-700 hover:border-teal-400 hover:bg-teal-50/50"
-              }`}
-            >
-              <span>{option.label}</span>
-
-              <span
-                className={`flex h-6 w-6 items-center justify-center rounded-full border ${
-                  selected
-                    ? "border-teal-700 bg-teal-700 text-white"
-                    : "border-slate-300"
-                }`}
-              >
-                {selected && <Check className="h-4 w-4" />}
-              </span>
-            </button>
-          );
-        })}
+        {options.map((option) => (
+          <OptionCard
+            key={option.value}
+            title={option.label}
+            selected={selectedValue === option.value}
+            onClick={() => onSelect(option.value)}
+          />
+        ))}
       </div>
     </div>
   );
@@ -465,7 +435,9 @@ function NextAction({ icon, title, text }: NextActionProps) {
   return (
     <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-left">
       <div className="text-teal-700">{icon}</div>
+
       <h3 className="mt-4 font-bold text-slate-900">{title}</h3>
+
       <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
     </div>
   );
