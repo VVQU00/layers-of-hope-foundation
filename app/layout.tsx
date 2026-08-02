@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og-image.jpg?v=2",
+        url: "/og-image.png?v=3",
         width: 1200,
         height: 630,
         alt: "Layers of Hope Foundation",
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     title: "Layers of Hope Foundation",
     description:
       "Education, awareness, advocacy, research, and hope for individuals affected by Mycosis Fungoides and CTCL.",
-    images: ["/og-image.jpg?v=2"],
+    images: ["/og-image.png?v=3"],
   },
 
   icons: {
