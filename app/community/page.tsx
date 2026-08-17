@@ -64,7 +64,7 @@ export default function CommunityPage() {
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/contact"
+                href="/contact?topic=community"
                 className="inline-flex items-center justify-center rounded-full bg-teal-700 px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-800"
               >
                 Join Our Community
@@ -173,7 +173,7 @@ export default function CommunityPage() {
             </p>
 
             <Link
-              href="/contact"
+              href="/contact?topic=story"
               className="mt-8 inline-flex items-center justify-center rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-teal-950 transition hover:bg-teal-50"
             >
               Share Your Story
@@ -199,7 +199,7 @@ export default function CommunityPage() {
           </p>
 
           <Link
-            href="/contact"
+            href="/contact?topic=community"
             className="mt-8 inline-flex items-center justify-center rounded-full bg-teal-700 px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-800"
           >
             Get Connected

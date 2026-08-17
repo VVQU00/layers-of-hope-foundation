@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const subjectLabels: Record<string, string> = {
   general: "General Question",
   community: "Community Support",
@@ -24,20 +22,47 @@ function escapeHtml(value: string) {
 
 export async function POST(request: Request) {
   try {
+    const apiKey = process.env.RESEND_API_KEY;
+
+    if (!apiKey) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Contact email is not configured yet. Please try again later.",
+        },
+        { status: 503 }
+      );
+    }
+
+    const resend = new Resend(apiKey);
+
     const body = await request.json();
 
     const firstName =
       typeof body.firstName === "string" ? body.firstName.trim() : "";
+
     const lastName =
       typeof body.lastName === "string" ? body.lastName.trim() : "";
+
     const email =
-      typeof body.email === "string" ? body.email.trim() : "";
+      typeof body.email === "string"
+        ? body.email.trim().toLowerCase()
+        : "";
+
     const subject =
       typeof body.subject === "string" ? body.subject.trim() : "";
+
     const message =
       typeof body.message === "string" ? body.message.trim() : "";
 
-    if (!firstName || !lastName || !email || !subject || !message) {
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !subject ||
+      !message
+    ) {
       return NextResponse.json(
         {
           success: false,
@@ -47,7 +72,10 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!email.includes("@")) {
+    const emailPattern =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email)) {
       return NextResponse.json(
         {
           success: false,
@@ -57,36 +85,86 @@ export async function POST(request: Request) {
       );
     }
 
-    const subjectLabel = subjectLabels[subject] ?? "Website Contact";
+    if (!subjectLabels[subject]) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Please select a valid contact topic.",
+        },
+        { status: 400 }
+      );
+    }
 
-    const { data, error } = await resend.emails.send({
-      from: "Layers of Hope Foundation <contact@layersofhopefoundation.org>",
-      to: ["lohfoundation@outlook.com"],
-      replyTo: email,
-      subject: `${subjectLabel} — ${firstName} ${lastName}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; color: #0f172a; line-height: 1.6;">
-          <h1 style="color: #0f766e;">New Layers of Hope Contact Message</h1>
+    const subjectLabel =
+      subjectLabels[subject];
 
-          <p>
-            A new message was submitted through
-            <strong>layersofhopefoundation.org</strong>.
-          </p>
+    const { data, error } =
+      await resend.emails.send({
+        from:
+          "Layers of Hope Foundation <contact@layersofhopefoundation.org>",
 
-          <hr style="border:0;border-top:1px solid #cbd5e1;margin:24px 0;" />
+        to: [
+          "lohfoundation@outlook.com",
+        ],
 
-          <p><strong>Name:</strong> ${escapeHtml(firstName)} ${escapeHtml(lastName)}</p>
-          <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-          <p><strong>Subject:</strong> ${escapeHtml(subjectLabel)}</p>
+        replyTo: email,
 
-          <p><strong>Message:</strong></p>
+        subject:
+          `${subjectLabel} — ${firstName} ${lastName}`,
 
-          <div style="white-space:pre-wrap;border-left:4px solid #0f766e;padding:12px 16px;background:#f0fdfa;">
-            ${escapeHtml(message)}
+        html: `
+          <div style="font-family: Arial, sans-serif; color: #0f172a; line-height: 1.6;">
+            <h1 style="color: #0f766e;">
+              New Layers of Hope Contact Message
+            </h1>
+
+            <p>
+              A new message was submitted through
+              <strong>layersofhopefoundation.org</strong>.
+            </p>
+
+            <hr
+              style="
+                border: 0;
+                border-top: 1px solid #cbd5e1;
+                margin: 24px 0;
+              "
+            />
+
+            <p>
+              <strong>Name:</strong>
+              ${escapeHtml(firstName)}
+              ${escapeHtml(lastName)}
+            </p>
+
+            <p>
+              <strong>Email:</strong>
+              ${escapeHtml(email)}
+            </p>
+
+            <p>
+              <strong>Subject:</strong>
+              ${escapeHtml(subjectLabel)}
+            </p>
+
+            <p>
+              <strong>Message:</strong>
+            </p>
+
+            <div
+              style="
+                white-space: pre-wrap;
+                border-left: 4px solid #0f766e;
+                padding: 12px 16px;
+                background: #f0fdfa;
+              "
+            >
+              ${escapeHtml(message)}
+            </div>
           </div>
-        </div>
-      `,
-      text: `
+        `,
+
+        text: `
 New Layers of Hope Contact Message
 
 Name: ${firstName} ${lastName}
@@ -95,17 +173,20 @@ Subject: ${subjectLabel}
 
 Message:
 ${message}
-      `.trim(),
-    });
+        `.trim(),
+      });
 
     if (error) {
-      console.error("Resend contact error:", error);
+      console.error(
+        "Resend contact error:",
+        error
+      );
 
       return NextResponse.json(
         {
           success: false,
-          message: "Your message could not be sent.",
-          error,
+          message:
+            "Your message could not be sent.",
         },
         { status: 500 }
       );
@@ -114,18 +195,23 @@ ${message}
     return NextResponse.json(
       {
         success: true,
-        message: "Your message was sent successfully.",
+        message:
+          "Your message was sent successfully.",
         id: data?.id,
       },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Contact route error:", error);
+    console.error(
+      "Contact route error:",
+      error
+    );
 
     return NextResponse.json(
       {
         success: false,
-        message: "Something went wrong. Please try again.",
+        message:
+          "Something went wrong. Please try again.",
       },
       { status: 500 }
     );

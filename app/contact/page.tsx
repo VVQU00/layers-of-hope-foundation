@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 
 const contactOptions = [
@@ -24,12 +24,33 @@ const contactOptions = [
   },
 ];
 
+const validTopics = new Set([
+  "general",
+  "community",
+  "story",
+  "volunteer",
+  "partnership",
+  "donation",
+  "other",
+]);
+
 export default function ContactPage() {
+  const [subject, setSubject] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [status, setStatus] = useState<{
     type: "success" | "error";
     message: string;
   } | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const topic = params.get("topic") ?? "";
+
+    if (validTopics.has(topic)) {
+      setSubject(topic);
+    }
+  }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -58,7 +79,9 @@ export default function ContactPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || "Your message could not be sent.");
+        throw new Error(
+          result.message || "Your message could not be sent."
+        );
       }
 
       setStatus({
@@ -69,6 +92,7 @@ export default function ContactPage() {
       });
 
       form.reset();
+      setSubject("");
     } catch (error) {
       setStatus({
         type: "error",
@@ -235,20 +259,42 @@ export default function ContactPage() {
                 id="subject"
                 name="subject"
                 required
-                defaultValue=""
+                value={subject}
+                onChange={(event) => setSubject(event.target.value)}
                 disabled={isSubmitting}
                 className="mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-100 disabled:cursor-not-allowed disabled:bg-slate-100"
               >
                 <option value="" disabled>
                   Select an option
                 </option>
-                <option value="general">General question</option>
-                <option value="community">Community support</option>
-                <option value="story">Share my story</option>
-                <option value="volunteer">Volunteer</option>
-                <option value="partnership">Partnership</option>
-                <option value="donation">Donation question</option>
-                <option value="other">Other</option>
+
+                <option value="general">
+                  General question
+                </option>
+
+                <option value="community">
+                  Community support
+                </option>
+
+                <option value="story">
+                  Share my story
+                </option>
+
+                <option value="volunteer">
+                  Volunteer
+                </option>
+
+                <option value="partnership">
+                  Partnership
+                </option>
+
+                <option value="donation">
+                  Donation question
+                </option>
+
+                <option value="other">
+                  Other
+                </option>
               </select>
             </div>
 

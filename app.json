@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "dca68993-e267-4ea2-abea-0d297d1a3326"
+      }
+    },
+    "android": {
+      "package": "com.vvqu00.layerofhopefoundation"
+    }
+  }
+}
